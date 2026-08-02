@@ -4,6 +4,8 @@
 **Product:** MoveX  
 **Version:** 1.0  
 **Status:** Draft
+
+---
 ## Purpose
 
 MoveX is a digital platform that connects passengers with drivers, enabling people to request, manage, and complete trips through a reliable and seamless experience.
