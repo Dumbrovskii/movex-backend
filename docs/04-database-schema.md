@@ -17,10 +17,10 @@ A user may also become a driver through the `drivers` table.
 
 | Column     | Type         | Constraints      | Description                  |
 | ---------- | ------------ | ---------------- | ---------------------------- |
-| id         | UUID         | PK               | Unique user identifier.      |
-| phone      | TEXT         | UNIQUE, NOT NULL | User phone number.           |
+| id         | BIGINT       | PK               | Unique user identifier.      |
+| phone      | VARCHAR(30)  | UNIQUE, NOT NULL | User phone number.           |
 | full_name  | VARCHAR(100) | NOT NULL         | User full name.              |
-| email      | TEXT         | UNIQUE, NULL     | User email address.          |
+| email      | VARCHAR(254) | UNIQUE, NULL     | User email address.          |
 | created_at | TIMESTAMPTZ  | NOT NULL         | Record creation timestamp.   |
 | updated_at | TIMESTAMPTZ  | NOT NULL         | Last modification timestamp. |
 | deleted_at | TIMESTAMPTZ  | NULL             | Soft deletion timestamp.     |
@@ -34,13 +34,13 @@ Represents users authorized to provide transportation services.
 
 A driver cannot exist without an associated user.
 
-| Column | Type | Constraints | Description |
-|----------|----------------|---------------------------------------|--------------------------------------------|
-| user_id | UUID | PK, FK → users.id | Associated user. |
-| status | DriverStatus | NOT NULL | Current driver status. |
-| created_at | TIMESTAMPTZ | NOT NULL | Record creation timestamp. |
-| updated_at | TIMESTAMPTZ | NOT NULL | Last modification timestamp. |
-| deleted_at | TIMESTAMPTZ | NULL | Soft deletion timestamp. |
+| Column     | Type         | Constraints       | Description                  |
+| ---------- | ------------ | ----------------- | ---------------------------- |
+| user_id    | BIGINT       | PK, FK → users.id | Associated user.             |
+| status     | DriverStatus | NOT NULL          | Current driver status.       |
+| created_at | TIMESTAMPTZ  | NOT NULL          | Record creation timestamp.   |
+| updated_at | TIMESTAMPTZ  | NOT NULL          | Last modification timestamp. |
+| deleted_at | TIMESTAMPTZ  | NULL              | Soft deletion timestamp.     |
 
 ### DriverStatus
 
@@ -59,9 +59,9 @@ Represents a transportation request created by a passenger and fulfilled by a dr
 
 | Column              | Type                   | Constraints                | Description                           |
 | ------------------- | ---------------------- | -------------------------- | ------------------------------------- |
-| id                  | UUID                   | PK                         | Unique ride identifier.               |
-| passenger_id        | UUID                   | FK → users.id, NOT NULL    | User who requested the ride.          |
-| assigned_driver_id  | UUID                   | FK → drivers.user_id, NULL | Assigned driver. NULL until accepted. |
+| id                  | BIGINT                 | PK                         | Unique ride identifier.               |
+| passenger_id        | BIGINT                 | FK → users.id, NOT NULL    | User who requested the ride.          |
+| assigned_driver_id  | BIGINT                 | FK → drivers.user_id, NULL | Assigned driver. NULL until accepted. |
 | pickup_address      | TEXT                   | NOT NULL                   | Pickup address.                       |
 | pickup_geo          | GEOGRAPHY(Point, 4326) | NOT NULL                   | Pickup coordinates.                   |
 | destination_address | TEXT                   | NOT NULL                   | Destination address.                  |
@@ -91,8 +91,8 @@ Each ride may have at most one payment.
 
 | Column         | Type          | Constraints                     | Description                                       |
 | -------------- | ------------- | ------------------------------- | ------------------------------------------------- |
-| id             | UUID          | PK                              | Unique payment identifier.                        |
-| ride_id        | UUID          | FK → rides.id, UNIQUE, NOT NULL | Associated ride.                                  |
+| id             | BIGINT        | PK                              | Unique payment identifier.                        |
+| ride_id        | BIGINT        | FK → rides.id, UNIQUE, NOT NULL | Associated ride.                                  |
 | amount         | NUMERIC(10,2) | NOT NULL                        | Payment amount.                                   |
 | currency       | CHAR(3)       | NOT NULL                        | ISO 4217 currency code.                           |
 | status         | PaymentStatus | NOT NULL                        | Current payment status.                           |
@@ -118,16 +118,16 @@ Represents a rating submitted after a completed ride.
 
 A ride may have multiple ratings.
 
-| Column | Type | Constraints | Description |
-|----------|----------------|---------------------------------|-----------------------------------------------|
-| id | UUID | PK | Unique rating identifier. |
-| ride_id | UUID | FK → rides.id, NOT NULL | Associated ride. |
-| author_id | UUID | FK → users.id, NOT NULL | User who submitted the rating. |
-| recipient_id | UUID | FK → users.id, NOT NULL | User being rated. |
-| score | SMALLINT | NOT NULL | Rating score (1–5). |
-| comment | TEXT | NULL | Optional review comment. |
-| created_at | TIMESTAMPTZ | NOT NULL | Record creation timestamp. |
-| updated_at | TIMESTAMPTZ | NOT NULL | Last modification timestamp. |
+| Column       | Type        | Constraints             | Description                    |
+| ------------ | ----------- | ----------------------- | ------------------------------ |
+| id           | BIGINT      | PK                      | Unique rating identifier.      |
+| ride_id      | BIGINT      | FK → rides.id, NOT NULL | Associated ride.               |
+| author_id    | BIGINT      | FK → users.id, NOT NULL | User who submitted the rating. |
+| recipient_id | BIGINT      | FK → users.id, NOT NULL | User being rated.              |
+| score        | SMALLINT    | NOT NULL                | Rating score (1–5).            |
+| comment      | TEXT        | NULL                    | Optional review comment.       |
+| created_at   | TIMESTAMPTZ | NOT NULL                | Record creation timestamp.     |
+| updated_at   | TIMESTAMPTZ | NOT NULL                | Last modification timestamp.   |
 ### Constraints
 
 | Constraint | Description |
@@ -146,13 +146,13 @@ Notifications are informational records and may be permanently deleted after the
 
 | Column     | Type             | Constraints             | Description                               |
 | ---------- | ---------------- | ----------------------- | ----------------------------------------- |
-| id         | UUID             | PK                      | Unique notification identifier.           |
-| user_id    | UUID             | FK → users.id, NOT NULL | Notification recipient.                   |
+| id         | BIGINT           | PK                      | Unique notification identifier.           |
+| user_id    | BIGINT           | FK → users.id, NOT NULL | Notification recipient.                   |
 | type       | NotificationType | NOT NULL                | Notification category.                    |
 | title      | TEXT             | NOT NULL                | Notification title.                       |
 | message    | TEXT             | NOT NULL                | Notification content.                     |
-| read_at    | TIMESTAMPTZ      | NULL                    | Timestamp when the notification was read. |
 | created_at | TIMESTAMPTZ      | NOT NULL                | Record creation timestamp.                |
+| read_at    | TIMESTAMPTZ      | NULL                    | Timestamp when the notification was read. |
 ### NotificationType
 
 | Value | Description |
