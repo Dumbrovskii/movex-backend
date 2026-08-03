@@ -51,7 +51,7 @@ Example:
 
 ## Resource Identifiers
 
-All resources use UUID identifiers.
+All resources use BIGINT identifiers.
 
 Example:
 
