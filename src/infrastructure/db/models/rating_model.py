@@ -15,7 +15,7 @@ class RatingModel(Base):
 
     score: Mapped[int] = mapped_column(
         SmallInteger,
-        CheckConstraint("score >= 0 AND rating <= 5", name="chk_score_range"),
+        CheckConstraint("score >= 1 AND score <= 5", name="chk_score_range"),
         nullable=False,
     )
 
