@@ -8,16 +8,18 @@ from sqlalchemy.orm import Mapped, mapped_column
 class RatingModel(Base):
     __tablename__ = "ratings"
 
+    __table_args__ = (
+        CheckConstraint(
+            "score >= 1 AND score <= 5",
+            name="chk_score_range",
+        ),
+    )
+
     id: Mapped[int] = mapped_column(BigInteger, Identity(), primary_key=True)
     ride_id: Mapped[int] = mapped_column(BigInteger, ForeignKey("rides.id"), nullable=False)
     author_id: Mapped[int] = mapped_column(BigInteger, ForeignKey("users.id"), nullable=False)
     recipient_id: Mapped[int] = mapped_column(BigInteger, ForeignKey("users.id"), nullable=False)
-
-    score: Mapped[int] = mapped_column(
-        SmallInteger,
-        CheckConstraint("score >= 1 AND score <= 5", name="chk_score_range"),
-        nullable=False,
-    )
+    score: Mapped[int] = mapped_column(SmallInteger, nullable=False)
 
     comment: Mapped[str] = mapped_column(TEXT, nullable=True)
 
