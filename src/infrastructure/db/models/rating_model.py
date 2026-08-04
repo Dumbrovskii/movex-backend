@@ -2,13 +2,13 @@ from datetime import datetime
 
 from src.infrastructure.db import Base
 
-from sqlalchemy import BigInteger, ForeignKey, SmallInteger, CheckConstraint, TEXT, TIMESTAMP, func
+from sqlalchemy import BigInteger, Identity, ForeignKey, SmallInteger, CheckConstraint, TEXT, TIMESTAMP, func
 from sqlalchemy.orm import Mapped, mapped_column
 
 class RatingModel(Base):
     __tablename__ = "ratings"
 
-    id: Mapped[int] = mapped_column(BigInteger, primary_key=True)
+    id: Mapped[int] = mapped_column(BigInteger, Identity(), primary_key=True)
     ride_id: Mapped[int] = mapped_column(BigInteger, ForeignKey("rides.id"), nullable=False)
     author_id: Mapped[int] = mapped_column(BigInteger, ForeignKey("users.id"), nullable=False)
     recipient_id: Mapped[int] = mapped_column(BigInteger, ForeignKey("users.id"), nullable=False)

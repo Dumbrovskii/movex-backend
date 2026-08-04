@@ -3,7 +3,7 @@ from datetime import datetime
 from src.infrastructure.db import Base
 from src.domain.enums import RideStatus
 
-from sqlalchemy import BigInteger, ForeignKey, TEXT, Enum as SQLEnum, TIMESTAMP, func
+from sqlalchemy import BigInteger, Identity, ForeignKey, TEXT, Enum as SQLEnum, TIMESTAMP, func
 from sqlalchemy.orm import Mapped, mapped_column
 
 from geoalchemy2 import Geography
@@ -12,7 +12,7 @@ from geoalchemy2.elements import WKBElement
 class RideModel(Base):
     __tablename__ = "rides"
 
-    id: Mapped[int] = mapped_column(BigInteger, primary_key=True)
+    id: Mapped[int] = mapped_column(BigInteger, Identity(), primary_key=True)
     passenger_id: Mapped[int] = mapped_column(BigInteger, ForeignKey("users.id"), nullable=False)
     assigned_driver_id: Mapped[int | None] = mapped_column(BigInteger, ForeignKey("drivers.user_id"), nullable=True)
     pickup_address: Mapped[str] = mapped_column(TEXT, nullable=False)
