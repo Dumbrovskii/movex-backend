@@ -1,25 +1,13 @@
-from pydantic_settings import BaseSettings, SettingsConfigDict
+from src.config import settings
 
-class DatabaseSettings(BaseSettings):
-    host: str
-    port: str
-    db_name: str
-    user: str
-    password: str
-
-    model_config = SettingsConfigDict(
-        env_prefix="POSTGRES_",
-        env_file=".env",
-        extra="ignore",
-    )
-
+class Database:
     @property
     def url(self) -> str:
         return (
             f"postgresql+psycopg://"
-            f"{self.user}:{self.password}@"
-            f"{self.host}:{self.port}/{self.db_name}"
+            f"{settings.POSTGRES_USER}:{settings.POSTGRES_PASSWORD}@"
+            f"{settings.POSTGRES_HOST}:{settings.POSTGRES_PORT}/"
+            f"{settings.POSTGRES_DB_NAME}"
         )
 
-
-database = DatabaseSettings()
+database = Database()
