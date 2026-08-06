@@ -4,7 +4,6 @@ import jwt
 
 from src.application.interfaces import JwtService
 from src.config import settings
-from src.config.settings import Settings
 
 class PyJwtService(JwtService):
 
