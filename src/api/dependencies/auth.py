@@ -4,7 +4,12 @@ from src.application.auth import (
 )
 from src.infrastructure.redis import (
     RedisVerificationCodeRepository,
+    RedisRefreshTokenRepository,
     redis,
+)
+from src.infrastructure.security import (
+    PyJwtService,
+    DefaultRefreshTokenService
 )
 from src.infrastructure.sms import DummySmsSender
 
@@ -19,8 +24,14 @@ def get_request_code_use_case() -> RequestCodeUseCase:
     )
 
 def get_verify_code_use_case() -> VerifyCodeUseCase:
-    repository = RedisVerificationCodeRepository(redis)
+    verification_code_repository = RedisVerificationCodeRepository(redis)
+    refresh_token_repository = RedisRefreshTokenRepository(redis)
+    jwt_service = PyJwtService()
+    refresh_token_service = DefaultRefreshTokenService()
 
     return VerifyCodeUseCase(
-        repository=repository,
+        verification_code_repository=verification_code_repository,
+        refresh_token_repository=refresh_token_repository,
+        jwt_service=jwt_service,
+        refresh_token_service=refresh_token_service,
     )
