@@ -5,7 +5,7 @@ from src.application.interfaces import (
     SmsSender,
     VerificationCodeRepository,
 )
-from src.application.auth.code_generator import generate_verification_code
+from .code_generator import generate_verification_code
 from src.config.settings import settings
 
 
