@@ -6,6 +6,7 @@ from src.application.exceptions import (
     TooManyRequestsError,
     InvalidVerificationCodeError,
     VerificationCodeNotFoundError,
+    InvalidRefreshTokenError,
 )
 
 def register_auth_exception_handlers(app: FastAPI) -> None:
@@ -41,6 +42,18 @@ def register_auth_exception_handlers(app: FastAPI) -> None:
     ):
         return JSONResponse(
             status_code=400,
+            content={
+                "detail": str(exc)
+            },
+        )
+
+    @app.exception_handler(InvalidRefreshTokenError)
+    async def invalid_refresh_token_handler(
+            request: Request,
+            exc: InvalidRefreshTokenError
+    ):
+        return JSONResponse(
+            status_code=401,
             content={
                 "detail": str(exc)
             },
