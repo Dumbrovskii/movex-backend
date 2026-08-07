@@ -17,3 +17,10 @@ class UserRepository(ABC):
             phone: str,
     ) -> User:
         pass
+
+    @abstractmethod
+    async def get_or_create(
+            self,
+            phone: str,
+    ) -> User:
+        pass
