@@ -5,7 +5,7 @@ from alembic import context
 from src.infrastructure.db import models
 from src.infrastructure.db.base import Base
 from src.config.database import database
-from src.infrastructure.db.engine import engine
+from src.infrastructure.db.sync_engine import engine as sync_engine
 
 import geoalchemy2
 from geoalchemy2 import alembic_helpers
@@ -43,7 +43,7 @@ def run_migrations_offline() -> None:
     script output.
 
     """
-    url = database.url
+    url = database.sync_url
     context.configure(
         url=url,
         target_metadata=target_metadata,
@@ -65,7 +65,7 @@ def run_migrations_online() -> None:
     and associate a connection with the context.
 
     """
-    connectable = engine
+    connectable = sync_engine
 
     with connectable.connect() as connection:
         context.configure(
