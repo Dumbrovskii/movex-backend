@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, Response
 
 from src.api.contracts.auth import (
     RequestCodeRequest,
@@ -7,21 +7,25 @@ from src.api.contracts.auth import (
     VerifyCodeResponse,
     RefreshTokenRequest,
     RefreshTokenResponse,
+    LogoutRequest,
 )
 from src.application.auth.commands import (
     RequestCodeCommand,
     VerifyCodeCommand,
     RefreshTokenCommand,
+    LogoutCommand,
 )
 from src.application.auth.use_cases import (
     RequestCodeUseCase,
     VerifyCodeUseCase,
     RefreshTokenUseCase,
+    LogoutUseCase,
 )
 from src.api.dependencies.auth import (
     get_request_code_use_case,
     get_verify_code_use_case,
     get_refresh_token_use_case,
+    get_logout_use_case,
 )
 
 
@@ -85,4 +89,23 @@ async def refresh(
     return RefreshTokenResponse(
         access_token=access_token,
         refresh_token=refresh_token,
+    )
+
+@router.post(
+    "/logout",
+    status_code=204,
+)
+async def logout(
+        request: LogoutRequest,
+        use_case: LogoutUseCase = Depends(get_logout_use_case),
+) -> Response:
+
+    command = LogoutCommand(
+        refresh_token=request.refresh_token,
+    )
+
+    await use_case.execute(command)
+
+    return Response(
+        status_code=204
     )
