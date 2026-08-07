@@ -28,7 +28,7 @@ def get_request_code_use_case(
         sms_sender: SmsSender = Depends(get_sms_sender),
 ) -> RequestCodeUseCase:
     return RequestCodeUseCase(
-        repository=verification_code_repository,
+        verification_code_repository=verification_code_repository,
         sms_sender=sms_sender,
     )
 
