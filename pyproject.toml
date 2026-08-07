@@ -19,6 +19,7 @@ dependencies = [
     "httpx>=0.28.1",
     "geoalchemy2>=0.20.0",
     "shapely>=2.1.2",
+    "asyncpg>=0.31.0",
 ]
 
 [dependency-groups]
