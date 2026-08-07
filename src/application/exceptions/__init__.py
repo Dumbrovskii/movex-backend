@@ -1,11 +1,13 @@
 from .auth import (
     TooManyRequestsError,
     InvalidVerificationCodeError,
-    VerificationCodeNotFoundError
+    VerificationCodeNotFoundError,
+    InvalidRefreshTokenError,
 )
 
 __all__ = [
     "TooManyRequestsError",
     "InvalidVerificationCodeError",
     "VerificationCodeNotFoundError",
+    "InvalidRefreshTokenError",
 ]

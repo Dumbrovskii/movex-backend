@@ -16,3 +16,8 @@ class VerificationCodeNotFoundError(Exception):
 
     def __init__(self) -> None:
         super().__init__("Verification code not found.")
+
+class InvalidRefreshTokenError(Exception):
+
+    def __init__(self) -> None:
+        super().__init__("Invalid refresh token.")
