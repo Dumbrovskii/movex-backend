@@ -10,7 +10,7 @@ class UserModel(Base):
 
     id: Mapped[int] = mapped_column(BigInteger, Identity(), primary_key=True)
     phone: Mapped[str] = mapped_column(String(30), unique=True, nullable=False)
-    full_name: Mapped[str] = mapped_column(String(100), nullable=False)
+    full_name: Mapped[str | None] = mapped_column(String(100), nullable=True)
     email: Mapped[str | None] = mapped_column(String(254), unique=True, nullable=True)
 
     created_at: Mapped[datetime] = mapped_column(
