@@ -49,7 +49,7 @@ async def request_code(
     await use_case.execute(command)
 
     return RequestCodeResponse(
-        success=True,
+        message="Verification code sent."
     )
 
 

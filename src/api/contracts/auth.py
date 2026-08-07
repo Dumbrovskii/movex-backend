@@ -9,7 +9,7 @@ class RequestCodeRequest(BaseModel):
     )
 
 class RequestCodeResponse(BaseModel):
-    success: bool
+    message: str
 
 class VerifyCodeRequest(BaseModel):
     phone: str = Field(

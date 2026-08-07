@@ -19,7 +19,10 @@ def register_auth_exception_handlers(app: FastAPI) -> None:
         return JSONResponse(
             status_code=429,
             content={
-                "detail": str(exc),
+                "error": {
+                    "code": "TOO_MANY_REQUESTS",
+                    "message": "Too many requests.",
+                },
             },
         )
 
