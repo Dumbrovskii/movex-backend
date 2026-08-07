@@ -72,7 +72,7 @@ async def verify_code(
     "/refresh",
     response_model=RefreshTokenResponse,
 )
-async def refresh_token(
+async def refresh(
         request: RefreshTokenRequest,
         use_case: RefreshTokenUseCase = Depends(get_refresh_token_use_case),
 ):
