@@ -3,6 +3,8 @@ from .auth import (
     RequestCodeResponse,
     VerifyCodeRequest,
     VerifyCodeResponse,
+    RefreshTokenRequest,
+    RefreshTokenResponse,
 )
 
 __all__ = [
@@ -10,4 +12,6 @@ __all__ = [
     "RequestCodeResponse",
     "VerifyCodeRequest",
     "VerifyCodeResponse",
+    "RefreshTokenRequest",
+    "RefreshTokenResponse",
 ]
