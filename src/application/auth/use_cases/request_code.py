@@ -1,33 +1,29 @@
-from dataclasses import dataclass
+from src.application.auth.commands import RequestCodeCommand
 
 from src.application.exceptions import TooManyRequestsError
 from src.application.interfaces import (
     SmsSender,
     VerificationCodeRepository,
 )
-from .code_generator import generate_verification_code
+from src.application.auth.code_generator import generate_verification_code
 from src.config.settings import settings
 
-
-@dataclass(slots=True, frozen=True)
-class RequestCodeCommand:
-    phone: str
 
 class RequestCodeUseCase:
 
     def __init__(
             self,
-            repository: VerificationCodeRepository,
+            verification_code_repository: VerificationCodeRepository,
             sms_sender: SmsSender,
     ) -> None:
-        self._repository = repository
+        self._verification_code_repository = verification_code_repository
         self._sms_sender = sms_sender
 
     async def execute(
             self,
             command: RequestCodeCommand,
     ) -> None:
-        can_request = await self._repository.can_request_code(
+        can_request = await self._verification_code_repository.can_request_code(
             command.phone,
         )
 
@@ -36,7 +32,7 @@ class RequestCodeUseCase:
 
         code = generate_verification_code()
 
-        await self._repository.save_code(
+        await self._verification_code_repository.save_code(
             phone=command.phone,
             code=code,
             ttl_seconds=settings.VERIFICATION_CODE_TTL_SECONDS,
