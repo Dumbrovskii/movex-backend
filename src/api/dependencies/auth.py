@@ -4,6 +4,7 @@ from src.application.auth.use_cases import (
     RequestCodeUseCase,
     VerifyCodeUseCase,
     RefreshTokenUseCase,
+    LogoutUseCase,
 )
 from src.application.interfaces import (
     SmsSender,
@@ -51,4 +52,12 @@ async def get_refresh_token_use_case(
     return RefreshTokenUseCase(
         refresh_token_repository=refresh_token_repository,
         token_service=token_service,
+    )
+
+async def get_logout_use_case(
+        refresh_token_repository: RefreshTokenRepository = Depends(get_refresh_token_repository),
+) -> LogoutUseCase:
+
+    return LogoutUseCase(
+        refresh_token_repository=refresh_token_repository,
     )
