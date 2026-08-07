@@ -5,6 +5,7 @@ from .auth import (
     VerifyCodeResponse,
     RefreshTokenRequest,
     RefreshTokenResponse,
+    LogoutRequest,
 )
 
 __all__ = [
@@ -14,4 +15,5 @@ __all__ = [
     "VerifyCodeResponse",
     "RefreshTokenRequest",
     "RefreshTokenResponse",
+    "LogoutRequest",
 ]
