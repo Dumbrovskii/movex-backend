@@ -1,7 +1,5 @@
 # MoveX Backend
 
-MoveX Backend
-
 MoveX Backend is a pet project created for learning and practicing backend development.
 
 MoveX is a ride-hailing service inspired by the Uber model. Passengers can request rides by specifying a pickup point and destination, while drivers can accept available ride requests and transport passengers to their destinations.
