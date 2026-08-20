@@ -1,3 +1,10 @@
+class InvalidPhoneNumberError(Exception):
+
+    def __init__(self) -> None:
+        super().__init__(
+            "Invalid phone number."
+        )
+
 class TooManyRequestsError(Exception):
 
     def __init__(self) -> None:
@@ -5,12 +12,10 @@ class TooManyRequestsError(Exception):
             "Verification code was requested too recently."
         )
 
-
 class InvalidVerificationCodeError(Exception):
 
     def __init__(self) -> None:
         super().__init__("Invalid verification code.")
-
 
 class VerificationCodeNotFoundError(Exception):
 

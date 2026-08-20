@@ -1,4 +1,5 @@
 from .auth import (
+    InvalidPhoneNumberError,
     TooManyRequestsError,
     InvalidVerificationCodeError,
     VerificationCodeNotFoundError,
@@ -6,6 +7,7 @@ from .auth import (
 )
 
 __all__ = [
+    "InvalidPhoneNumberError",
     "TooManyRequestsError",
     "InvalidVerificationCodeError",
     "VerificationCodeNotFoundError",

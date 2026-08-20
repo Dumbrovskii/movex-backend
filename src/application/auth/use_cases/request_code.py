@@ -1,11 +1,15 @@
 from src.application.auth.commands import RequestCodeCommand
 
-from src.application.exceptions import TooManyRequestsError
+from src.application.exceptions import (
+    TooManyRequestsError,
+    InvalidPhoneNumberError,
+)
 from src.application.interfaces import (
     SmsSender,
     VerificationCodeRepository,
 )
 from src.application.auth.code_generator import generate_verification_code
+from src.application.auth.validators import is_valid_phone_number
 from src.config.settings import settings
 
 
@@ -23,6 +27,10 @@ class RequestCodeUseCase:
             self,
             command: RequestCodeCommand,
     ) -> None:
+
+        if not is_valid_phone_number(command.phone):
+            raise InvalidPhoneNumberError()
+
         can_request = await self._verification_code_repository.can_request_code(
             command.phone,
         )
