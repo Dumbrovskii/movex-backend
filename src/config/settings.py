@@ -1,6 +1,17 @@
+from typing import List
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 class Settings(BaseSettings):
+    #APP
+    TITLE: str
+    VERSION: str
+    ALLOW_ORIGINS: List[str]
+    ALLOW_CREDENTIALS: bool
+    ALLOW_METHODS: List[str]
+    ALLOW_HEADERS: List[str]
+    ROUTER_PREFIX: str
+
+
     # PostgreSQL
     POSTGRES_HOST: str
     POSTGRES_PORT: str
