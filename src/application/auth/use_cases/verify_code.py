@@ -1,4 +1,5 @@
 from src.application.auth.commands import VerifyCodeCommand
+from src.domain.entities import User
 
 from src.application.exceptions import (
     VerificationCodeNotFoundError,
@@ -27,7 +28,7 @@ class VerifyCodeUseCase:
     async def execute(
             self,
             command: VerifyCodeCommand,
-    ) -> tuple[str, str]:
+    ) -> tuple[str, str, User]:
         stored_code = await self._verification_code_repository.get_code(
             command.phone,
         )
@@ -46,6 +47,8 @@ class VerifyCodeUseCase:
             command.phone,
         )
 
-        return await self._token_service.issue_tokens(
+        access_token, refresh_token = await self._token_service.issue_tokens(
             user_id=user.id,
         )
+
+        return access_token, refresh_token, user

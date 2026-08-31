@@ -65,11 +65,12 @@ async def verify_code(
         phone=request.phone,
         code=request.code,
     )
-    access_token, refresh_token = await use_case.execute(command)
+    access_token, refresh_token, user = await use_case.execute(command)
 
     return VerifyCodeResponse(
         access_token=access_token,
         refresh_token=refresh_token,
+        user=user,
     )
 
 @router.post(

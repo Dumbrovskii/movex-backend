@@ -1,4 +1,5 @@
 from pydantic import BaseModel, Field
+from src.domain.entities.user import User
 
 class RequestCodeRequest(BaseModel):
     phone: str = Field(
@@ -27,6 +28,7 @@ class VerifyCodeRequest(BaseModel):
 class VerifyCodeResponse(BaseModel):
     access_token: str
     refresh_token: str
+    user: User
 
 class RefreshTokenRequest(BaseModel):
     refresh_token: str
