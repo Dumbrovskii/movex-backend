@@ -1,12 +1,27 @@
+from contextlib import asynccontextmanager
+
+import httpx
 from fastapi import FastAPI
-from src.api.v1.auth import router as auth_rout
+from src.api.v1.auth import router as auth_router
+from src.api.v1.rides import router as rides_router
 from src.api.exception_handlers import register_auth_exception_handlers
 from fastapi.middleware.cors import CORSMiddleware
 from src.config.settings import settings
 
+
+@asynccontextmanager
+async def lifespan(application: FastAPI):
+    application.state.http_client = httpx.AsyncClient()
+
+    yield
+
+    await application.state.http_client.aclose()
+
+
 app = FastAPI(
     title=settings.TITLE,
     version=settings.VERSION,
+    lifespan=lifespan,
 )
 
 register_auth_exception_handlers(app)
@@ -20,8 +35,13 @@ app.add_middleware(
 )
 
 app.include_router(
-    auth_rout,
-    prefix=settings.ROUTER_PREFIX
+    auth_router,
+    prefix=settings.ROUTER_PREFIX,
+)
+
+app.include_router(
+    rides_router,
+    prefix=settings.ROUTER_PREFIX,
 )
 
 @app.get('/')
