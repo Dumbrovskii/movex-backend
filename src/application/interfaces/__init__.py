@@ -9,6 +9,8 @@ from .services import (
     SmsSender,
     RefreshTokenService,
     TokenService,
+    RouteService,
+    PricingService,
 )
 
 __all__ = [
@@ -19,4 +21,6 @@ __all__ = [
     "SmsSender",
     "RefreshTokenService",
     "TokenService",
+    "RouteService",
+    "PricingService",
 ]
