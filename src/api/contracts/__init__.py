@@ -7,6 +7,10 @@ from .auth import (
     RefreshTokenResponse,
     LogoutRequest,
 )
+from .rides import (
+    EstimateRideRequest,
+    EstimateRideResponse,
+)
 
 __all__ = [
     "RequestCodeRequest",
@@ -16,4 +20,6 @@ __all__ = [
     "RefreshTokenRequest",
     "RefreshTokenResponse",
     "LogoutRequest",
+    "EstimateRideRequest",
+    "EstimateRideResponse",
 ]
