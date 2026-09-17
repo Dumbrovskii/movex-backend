@@ -8,6 +8,8 @@ from src.api.exception_handlers import register_auth_exception_handlers
 from fastapi.middleware.cors import CORSMiddleware
 from src.config.settings import settings
 
+from prometheus_fastapi_instrumentator import Instrumentator
+
 
 @asynccontextmanager
 async def lifespan(application: FastAPI):
@@ -25,6 +27,9 @@ app = FastAPI(
 )
 
 register_auth_exception_handlers(app)
+
+# TODO: /metrics is public - restrict via network policy (VPN/internal-only) or Basic Auth before prod
+Instrumentator().instrument(app).expose(app, include_in_schema=False)
 
 app.add_middleware(
     CORSMiddleware,
