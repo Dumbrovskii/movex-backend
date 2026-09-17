@@ -1,4 +1,5 @@
-from fastapi import Depends
+import httpx
+from fastapi import Depends, Request
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from src.application.interfaces import (
@@ -54,3 +55,6 @@ def get_token_service(
         refresh_token_service=refresh_token_service,
         refresh_token_repository=refresh_token_repository,
     )
+
+def get_http_client(request: Request) -> httpx.AsyncClient:
+    return request.app.state.http_client

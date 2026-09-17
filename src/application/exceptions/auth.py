@@ -26,3 +26,8 @@ class InvalidRefreshTokenError(Exception):
 
     def __init__(self) -> None:
         super().__init__("Invalid refresh token.")
+
+class UnauthorizedError(Exception):
+
+    def __init__(self) -> None:
+        super().__init__("Invalid or expired access token.")

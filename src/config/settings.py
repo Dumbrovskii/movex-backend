@@ -1,5 +1,6 @@
 from typing import List
 from pydantic_settings import BaseSettings, SettingsConfigDict
+from decimal import Decimal
 
 class Settings(BaseSettings):
     #APP
@@ -28,6 +29,9 @@ class Settings(BaseSettings):
     JWT_SECRET: str
     JWT_ALGORITHM: str
 
+    #OSRM
+    OSRM_HOST: str
+
     # Auth
     VERIFICATION_CODE_LENGTH: int
     VERIFICATION_CODE_TTL_SECONDS: int
@@ -37,6 +41,10 @@ class Settings(BaseSettings):
     REFRESH_TOKEN_TTL_DAYS: int
 
     LOG_LEVEL: str = "INFO"
+
+    # Pricing
+    RIDE_BASE_FARE: Decimal
+    RIDE_PRICE_PER_KM: Decimal
 
     model_config = SettingsConfigDict(
         env_file=".env",
