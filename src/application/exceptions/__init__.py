@@ -4,6 +4,7 @@ from .auth import (
     InvalidVerificationCodeError,
     VerificationCodeNotFoundError,
     InvalidRefreshTokenError,
+    UnauthorizedError,
 )
 
 __all__ = [
@@ -12,4 +13,5 @@ __all__ = [
     "InvalidVerificationCodeError",
     "VerificationCodeNotFoundError",
     "InvalidRefreshTokenError",
+    "UnauthorizedError",
 ]

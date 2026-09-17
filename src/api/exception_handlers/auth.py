@@ -8,6 +8,7 @@ from src.application.exceptions import (
     InvalidVerificationCodeError,
     VerificationCodeNotFoundError,
     InvalidRefreshTokenError,
+    UnauthorizedError,
 )
 
 def register_auth_exception_handlers(app: FastAPI) -> None:
@@ -76,4 +77,20 @@ def register_auth_exception_handlers(app: FastAPI) -> None:
             content={
                 "detail": str(exc)
             },
+        )
+
+    @app.exception_handler(UnauthorizedError)
+    async def unauthorized_handler(
+            request: Request,
+            exc: UnauthorizedError,
+    ):
+        return JSONResponse(
+            status_code=401,
+            content={
+                "error": {
+                    "code": "UNAUTHORIZED",
+                    "message": str(exc),
+                },
+            },
+            headers={"WWW-Authenticate": "Bearer"}
         )

@@ -5,11 +5,12 @@ from src.api.contracts.rides import (
     EstimateRideResponse,
 )
 from src.api.dependencies import get_estimate_ride_use_cases
+from src.api.routing import ProtectedAPIRouter
 from src.application.rides.commands.estimate_ride import EstimateRideCommand
 from src.application.rides.use_cases import EstimateRideUseCase
 from src.domain.value_objects import GeoPoint
 
-router = APIRouter(
+router = ProtectedAPIRouter(
     prefix="/rides",
     tags=["Rides"],
 )
