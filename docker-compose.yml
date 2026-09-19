@@ -1,4 +1,27 @@
 services:
+  movex-backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: movex-backend
+    container_name: movex-backend
+    restart: unless-stopped
+
+    env_file:
+      - .env
+
+    ports:
+      - "8000:8000"
+
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+    networks:
+      - movex-network
+
   postgres:
     build:
       context: .
@@ -24,6 +47,9 @@ services:
       timeout: 5s
       retries: 5
 
+    networks:
+      - movex-network
+
   redis:
     image: redis:8
     container_name: movex-redis
@@ -41,6 +67,14 @@ services:
       timeout: 5s
       retries: 5
 
+    networks:
+      - movex-network
+
 volumes:
   postgres_data:
   redis_data:
+
+networks:
+  movex-network:
+    name: movex-network
+    driver: bridge
