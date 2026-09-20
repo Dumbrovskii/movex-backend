@@ -1,8 +1,8 @@
 from fastapi import Depends
 
 from src.api.contracts import (
-    EstimateRideRequest,
-    EstimateRideResponse,
+    RideEstimateRequest,
+    RideEstimateResponse,
     RideRequest,
     RideResponse,
 )
@@ -13,12 +13,12 @@ from src.api.dependencies import (
 )
 from src.api.routing import ProtectedAPIRouter
 from src.application.rides.commands import (
-    EstimateRideCommand,
-    RequestRideCommand,
+    RideEstimateCommand,
+    RideRequestCommand,
 )
 from src.application.rides.use_cases import (
-    EstimateRideUseCase,
-    RequestRideUseCase,
+    RideEstimateUseCase,
+    RideRequestUseCase,
 )
 from src.domain.value_objects import GeoPoint
 
@@ -27,13 +27,13 @@ router = ProtectedAPIRouter(
     tags=["Rides"],
 )
 
-@router.post("/estimate", response_model=EstimateRideResponse)
+@router.post("/estimate", response_model=RideEstimateResponse)
 async def estimate_ride(
-        request: EstimateRideRequest,
-        use_case: EstimateRideUseCase = Depends(get_estimate_ride_use_cases)
-) -> EstimateRideResponse:
+        request: RideEstimateRequest,
+        use_case: RideEstimateUseCase = Depends(get_estimate_ride_use_cases)
+) -> RideEstimateResponse:
 
-    command = EstimateRideCommand(
+    command = RideEstimateCommand(
         pickup=GeoPoint(
             latitude=request.pickup_latitude,
             longitude=request.pickup_longitude,
@@ -46,7 +46,7 @@ async def estimate_ride(
 
     route, price = await use_case.execute(command)
 
-    return EstimateRideResponse(
+    return RideEstimateResponse(
         distance_meters=route.distance_meters,
         duration_seconds=route.duration_seconds,
         geometry=[
@@ -65,10 +65,10 @@ async def estimate_ride(
 async def request_ride(
         request: RideRequest,
         user_id: int = Depends(get_current_user_id),
-        use_case: RequestRideUseCase = Depends(get_request_ride_use_cases),
+        use_case: RideRequestUseCase = Depends(get_request_ride_use_cases),
 ) -> RideResponse:
 
-    command = RequestRideCommand(
+    command = RideRequestCommand(
         pickup=GeoPoint(
             latitude=request.pickup_latitude,
             longitude=request.pickup_longitude,
