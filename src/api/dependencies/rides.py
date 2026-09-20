@@ -32,7 +32,7 @@ def get_price_service() -> PricingService:
     return DefaultPricingService()
 
 
-async def get_estimate_ride_use_cases(
+async def get_ride_estimate_use_cases(
         route_service: RouteService = Depends(get_route_service),
         pricing_service: PricingService = Depends(get_price_service),
 
@@ -42,7 +42,7 @@ async def get_estimate_ride_use_cases(
         pricing_service=pricing_service
     )
 
-async def get_request_ride_use_cases(
+async def get_ride_request_use_cases(
         route_service: RouteService = Depends(get_route_service),
         pricing_service: PricingService = Depends(get_price_service),
         rides_repository: RidesRepository = Depends(get_rides_repository),

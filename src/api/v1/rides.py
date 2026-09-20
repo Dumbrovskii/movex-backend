@@ -7,8 +7,8 @@ from src.api.contracts import (
     RideResponse,
 )
 from src.api.dependencies import (
-    get_estimate_ride_use_cases,
-    get_request_ride_use_cases,
+    get_ride_estimate_use_cases,
+    get_ride_request_use_cases,
     get_current_user_id,
 )
 from src.api.routing import ProtectedAPIRouter
@@ -28,9 +28,9 @@ router = ProtectedAPIRouter(
 )
 
 @router.post("/estimate", response_model=RideEstimateResponse)
-async def estimate_ride(
+async def ride_estimate(
         request: RideEstimateRequest,
-        use_case: RideEstimateUseCase = Depends(get_estimate_ride_use_cases)
+        use_case: RideEstimateUseCase = Depends(get_ride_estimate_use_cases)
 ) -> RideEstimateResponse:
 
     command = RideEstimateCommand(
@@ -62,10 +62,10 @@ async def estimate_ride(
     )
 
 @router.post("", response_model=RideResponse)
-async def request_ride(
+async def ride_request(
         request: RideRequest,
         user_id: int = Depends(get_current_user_id),
-        use_case: RideRequestUseCase = Depends(get_request_ride_use_cases),
+        use_case: RideRequestUseCase = Depends(get_ride_request_use_cases),
 ) -> RideResponse:
 
     command = RideRequestCommand(
