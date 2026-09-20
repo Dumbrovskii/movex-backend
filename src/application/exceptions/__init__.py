@@ -6,6 +6,9 @@ from .auth import (
     InvalidRefreshTokenError,
     UnauthorizedError,
 )
+from .rides import (
+    ActiveRideExistsError,
+)
 
 __all__ = [
     "InvalidPhoneNumberError",
@@ -14,4 +17,5 @@ __all__ = [
     "VerificationCodeNotFoundError",
     "InvalidRefreshTokenError",
     "UnauthorizedError",
+    "ActiveRideExistsError",
 ]
