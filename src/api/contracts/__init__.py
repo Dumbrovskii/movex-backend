@@ -10,6 +10,8 @@ from .auth import (
 from .rides import (
     EstimateRideRequest,
     EstimateRideResponse,
+    RideRequest,
+    RideResponse,
 )
 
 __all__ = [
@@ -22,4 +24,6 @@ __all__ = [
     "LogoutRequest",
     "EstimateRideRequest",
     "EstimateRideResponse",
+    "RideRequest",
+    "RideResponse",
 ]
