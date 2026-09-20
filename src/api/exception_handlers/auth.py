@@ -1,5 +1,7 @@
-from fastapi import FastAPI
-from fastapi import Request
+from fastapi import (
+    FastAPI,
+    Request
+)
 from fastapi.responses import JSONResponse
 
 from src.application.exceptions import (

@@ -1,9 +1,19 @@
 import httpx
 from fastapi import Depends
 
-from src.api.dependencies.providers import get_http_client
-from src.application.interfaces import RouteService, PricingService
-from src.application.rides.use_cases import EstimateRideUseCase
+from src.api.dependencies.providers import (
+    get_http_client,
+    get_rides_repository,
+)
+from src.application.interfaces import (
+    RouteService,
+    PricingService,
+    RidesRepository
+)
+from src.application.rides.use_cases import (
+    EstimateRideUseCase,
+    RequestRideUseCase,
+)
 from src.config.settings import settings
 from src.infrastructure.pricing import DefaultPricingService
 from src.infrastructure.routing import OSRMRouteService
@@ -30,4 +40,15 @@ async def get_estimate_ride_use_cases(
     return EstimateRideUseCase(
         route_service=route_service,
         pricing_service=pricing_service
+    )
+
+async def get_request_ride_use_cases(
+        route_service: RouteService = Depends(get_route_service),
+        pricing_service: PricingService = Depends(get_price_service),
+        rides_repository: RidesRepository = Depends(get_rides_repository),
+) -> RequestRideUseCase:
+    return RequestRideUseCase(
+        route_service=route_service,
+        pricing_service=pricing_service,
+        rides_repository=rides_repository,
     )

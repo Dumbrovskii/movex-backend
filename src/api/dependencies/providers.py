@@ -11,7 +11,10 @@ from src.application.interfaces import (
     VerificationCodeRepository,
     TokenService,
 )
-from src.infrastructure.db.repositories import SqlAlchemyUserRepository
+from src.infrastructure.db.repositories import (
+    PostgresUserRepository,
+    PostgresRidesRepository,
+)
 from src.infrastructure.db.session import get_session
 from src.infrastructure.redis import (
     RedisVerificationCodeRepository,
@@ -34,7 +37,10 @@ def get_refresh_token_repository() -> RefreshTokenRepository:
     return RedisRefreshTokenRepository(redis)
 
 async def get_user_repository( session: AsyncSession = Depends(get_session),) -> UserRepository:
-    return SqlAlchemyUserRepository(session)
+    return PostgresUserRepository(session)
+
+async def get_rides_repository(session: AsyncSession = Depends(get_session)) -> PostgresRidesRepository:
+    return PostgresRidesRepository(session)
 
 def get_sms_sender() -> SmsSender:
     return DummySmsSender()

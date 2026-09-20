@@ -4,7 +4,10 @@ import httpx
 from fastapi import FastAPI
 from src.api.v1.auth import router as auth_router
 from src.api.v1.rides import router as rides_router
-from src.api.exception_handlers import register_auth_exception_handlers
+from src.api.exception_handlers import(
+    register_auth_exception_handlers,
+    register_rides_exceptions_handlers,
+)
 from fastapi.middleware.cors import CORSMiddleware
 from src.config.settings import settings
 
@@ -27,6 +30,7 @@ app = FastAPI(
 )
 
 register_auth_exception_handlers(app)
+register_rides_exceptions_handlers(app)
 
 # TODO: /metrics is public - restrict via network policy (VPN/internal-only) or Basic Auth before prod
 Instrumentator().instrument(app).expose(app, include_in_schema=False)

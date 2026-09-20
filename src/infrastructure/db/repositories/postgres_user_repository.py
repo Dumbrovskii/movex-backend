@@ -7,7 +7,7 @@ from src.infrastructure.db.mappers import UserMapper
 from src.infrastructure.db.models import UserModel
 
 
-class SqlAlchemyUserRepository(UserRepository):
+class PostgresUserRepository(UserRepository):
 
     def __init__(
             self,

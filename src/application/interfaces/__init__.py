@@ -2,6 +2,7 @@ from .repositories import (
     VerificationCodeRepository,
     RefreshTokenRepository,
     UserRepository,
+    RidesRepository,
 )
 
 from .services import (
@@ -17,6 +18,7 @@ __all__ = [
     "VerificationCodeRepository",
     "RefreshTokenRepository",
     "UserRepository",
+    "RidesRepository",
     "JwtService",
     "SmsSender",
     "RefreshTokenService",
