@@ -48,6 +48,9 @@ class RideRequestUseCase:
             destination_address='',
             destination_geo=command.destination,
             status=RideStatus.REQUESTED,
+            distance_meters=route.distance_meters,
+            price=price.amount,
+            currency=price.currency,
         )
 
         await self._rides_repository.create(ride)

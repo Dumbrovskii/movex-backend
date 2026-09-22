@@ -5,20 +5,24 @@ from src.api.contracts import (
     RideEstimateResponse,
     RideRequest,
     RideResponse,
+    RideActiveResponse,
 )
 from src.api.dependencies import (
     get_ride_estimate_use_cases,
     get_ride_request_use_cases,
+    get_ride_active_use_cases,
     get_current_user_id,
 )
 from src.api.routing import ProtectedAPIRouter
 from src.application.rides.commands import (
     RideEstimateCommand,
     RideRequestCommand,
+    RideActiveCommand,
 )
 from src.application.rides.use_cases import (
     RideEstimateUseCase,
     RideRequestUseCase,
+    RideActiveUseCase,
 )
 from src.domain.value_objects import GeoPoint
 
@@ -95,4 +99,21 @@ async def ride_request(
         ],
         price=price.amount,
         currency=price.currency,
+    )
+
+@router.get("/active", response_model=RideActiveResponse)
+async def ride_active(
+        user_id: int = Depends(get_current_user_id),
+        use_case: RideActiveUseCase = Depends(get_ride_active_use_cases)
+) -> RideActiveResponse:
+
+    command = RideActiveCommand(
+        user_id=user_id,
+    )
+
+    ride, route = await use_case.execute(command)
+
+    return RideActiveResponse(
+        route=route,
+        ride=ride,
     )

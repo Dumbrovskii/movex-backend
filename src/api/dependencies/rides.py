@@ -13,6 +13,7 @@ from src.application.interfaces import (
 from src.application.rides.use_cases import (
     RideEstimateUseCase,
     RideRequestUseCase,
+    RideActiveUseCase,
 )
 from src.config.settings import settings
 from src.infrastructure.pricing import DefaultPricingService
@@ -51,4 +52,13 @@ async def get_ride_request_use_cases(
         route_service=route_service,
         pricing_service=pricing_service,
         rides_repository=rides_repository,
+    )
+
+async def get_ride_active_use_cases(
+        route_service: RouteService = Depends(get_route_service),
+        ride_repository: RidesRepository = Depends(get_rides_repository),
+) -> RideActiveUseCase:
+    return RideActiveUseCase(
+        route_service=route_service,
+        ride_repository=ride_repository,
     )

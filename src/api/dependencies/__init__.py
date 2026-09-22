@@ -6,6 +6,7 @@ from .auth import (
 from .rides import (
     get_ride_estimate_use_cases,
     get_ride_request_use_cases,
+    get_ride_active_use_cases,
 )
 
 from .security import (
@@ -19,4 +20,5 @@ __all__ = [
     "get_current_user_id",
     "get_ride_estimate_use_cases",
     "get_ride_request_use_cases",
+    "get_ride_active_use_cases",
 ]

@@ -17,14 +17,7 @@ class PostgresRidesRepository(RidesRepository):
         self._session = session
 
     async def create(self, ride: Ride) -> Ride:
-        model = RideModel(
-            passenger_id=ride.passenger_id,
-            pickup_address=ride.pickup_address,
-            pickup_geo=ride.pickup_geo.to_wkt(),
-            destination_address=ride.destination_address,
-            destination_geo=ride.destination_geo.to_wkt(),
-            status=ride.status,
-        )
+        model = RideMapper.to_model(ride)
 
         self._session.add(model)
 
@@ -63,7 +56,12 @@ class PostgresRidesRepository(RidesRepository):
             .limit(1))
 
         result = await self._session.execute(query)
-        return result.scalar_one_or_none()
+        model = result.scalar_one_or_none()
+
+        if not model:
+            return None
+
+        return RideMapper.to_domain(model)
 
     async def update_status(self, ride_id: int, status: RideStatus) -> None:
         pass

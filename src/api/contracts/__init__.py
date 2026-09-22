@@ -12,6 +12,7 @@ from .rides import (
     RideEstimateResponse,
     RideRequest,
     RideResponse,
+    RideActiveResponse,
 )
 
 __all__ = [
@@ -26,4 +27,5 @@ __all__ = [
     "RideEstimateResponse",
     "RideRequest",
     "RideResponse",
+    "RideActiveResponse",
 ]
