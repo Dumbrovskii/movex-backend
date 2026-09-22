@@ -31,6 +31,9 @@ class RideMapper:
                 latitude=destination_shape.y
             ),
             status=model.status,
+            distance_meters=model.distance_meters,
+            price=model.price,
+            currency=model.currency,
             created_at=model.created_at,
             updated_at=model.updated_at,
         )
@@ -61,6 +64,9 @@ class RideMapper:
                 srid=4326
             ),
             status=domain.status,
+            distance_meters=domain.distance_meters,
+            price=domain.price,
+            currency=domain.currency,
             created_at=domain.created_at,
             updated_at=domain.updated_at,
         )

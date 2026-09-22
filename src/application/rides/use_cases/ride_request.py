@@ -6,13 +6,13 @@ from src.application.interfaces import (
 from src.application.exceptions import (
     ActiveRideExistsError,
 )
-from src.application.rides.commands import RequestRideCommand
+from src.application.rides.commands import RideRequestCommand
 from src.domain.value_objects import Route, Money
 from src.domain.entities import Ride
 from src.domain.enums import RideStatus
 
 
-class RequestRideUseCase:
+class RideRequestUseCase:
 
     def __init__(
             self,
@@ -26,7 +26,7 @@ class RequestRideUseCase:
 
     async def execute(
             self,
-            command: RequestRideCommand,
+            command: RideRequestCommand,
     ) -> tuple[Route, Money]:
 
         exists_ride = await self._rides_repository.exists_active_by_user_id(command.user_id)
@@ -48,6 +48,9 @@ class RequestRideUseCase:
             destination_address='',
             destination_geo=command.destination,
             status=RideStatus.REQUESTED,
+            distance_meters=route.distance_meters,
+            price=price.amount,
+            currency=price.currency,
         )
 
         await self._rides_repository.create(ride)

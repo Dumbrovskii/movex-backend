@@ -1,24 +1,28 @@
 from fastapi import Depends
 
 from src.api.contracts import (
-    EstimateRideRequest,
-    EstimateRideResponse,
+    RideEstimateRequest,
+    RideEstimateResponse,
     RideRequest,
     RideResponse,
+    RideActiveResponse,
 )
 from src.api.dependencies import (
-    get_estimate_ride_use_cases,
-    get_request_ride_use_cases,
+    get_ride_estimate_use_cases,
+    get_ride_request_use_cases,
+    get_ride_active_use_cases,
     get_current_user_id,
 )
 from src.api.routing import ProtectedAPIRouter
 from src.application.rides.commands import (
-    EstimateRideCommand,
-    RequestRideCommand,
+    RideEstimateCommand,
+    RideRequestCommand,
+    RideActiveCommand,
 )
 from src.application.rides.use_cases import (
-    EstimateRideUseCase,
-    RequestRideUseCase,
+    RideEstimateUseCase,
+    RideRequestUseCase,
+    RideActiveUseCase,
 )
 from src.domain.value_objects import GeoPoint
 
@@ -27,13 +31,13 @@ router = ProtectedAPIRouter(
     tags=["Rides"],
 )
 
-@router.post("/estimate", response_model=EstimateRideResponse)
-async def estimate_ride(
-        request: EstimateRideRequest,
-        use_case: EstimateRideUseCase = Depends(get_estimate_ride_use_cases)
-) -> EstimateRideResponse:
+@router.post("/estimate", response_model=RideEstimateResponse)
+async def ride_estimate(
+        request: RideEstimateRequest,
+        use_case: RideEstimateUseCase = Depends(get_ride_estimate_use_cases)
+) -> RideEstimateResponse:
 
-    command = EstimateRideCommand(
+    command = RideEstimateCommand(
         pickup=GeoPoint(
             latitude=request.pickup_latitude,
             longitude=request.pickup_longitude,
@@ -46,7 +50,7 @@ async def estimate_ride(
 
     route, price = await use_case.execute(command)
 
-    return EstimateRideResponse(
+    return RideEstimateResponse(
         distance_meters=route.distance_meters,
         duration_seconds=route.duration_seconds,
         geometry=[
@@ -62,13 +66,13 @@ async def estimate_ride(
     )
 
 @router.post("", response_model=RideResponse)
-async def request_ride(
+async def ride_request(
         request: RideRequest,
         user_id: int = Depends(get_current_user_id),
-        use_case: RequestRideUseCase = Depends(get_request_ride_use_cases),
+        use_case: RideRequestUseCase = Depends(get_ride_request_use_cases),
 ) -> RideResponse:
 
-    command = RequestRideCommand(
+    command = RideRequestCommand(
         pickup=GeoPoint(
             latitude=request.pickup_latitude,
             longitude=request.pickup_longitude,
@@ -95,4 +99,21 @@ async def request_ride(
         ],
         price=price.amount,
         currency=price.currency,
+    )
+
+@router.get("/active", response_model=RideActiveResponse)
+async def ride_active(
+        user_id: int = Depends(get_current_user_id),
+        use_case: RideActiveUseCase = Depends(get_ride_active_use_cases)
+) -> RideActiveResponse:
+
+    command = RideActiveCommand(
+        user_id=user_id,
+    )
+
+    ride, route = await use_case.execute(command)
+
+    return RideActiveResponse(
+        route=route,
+        ride=ride,
     )

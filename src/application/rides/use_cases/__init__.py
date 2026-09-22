@@ -1,7 +1,9 @@
-from .estimate_ride import EstimateRideUseCase
-from .request_ride import RequestRideUseCase
+from .ride_estimate import RideEstimateUseCase
+from .ride_request import RideRequestUseCase
+from .ride_active import RideActiveUseCase
 
 __all__ = [
-    "EstimateRideUseCase",
-    "RequestRideUseCase",
+    "RideEstimateUseCase",
+    "RideRequestUseCase",
+    "RideActiveUseCase",
 ]

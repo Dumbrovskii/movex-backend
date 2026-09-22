@@ -1,9 +1,10 @@
 from datetime import datetime
+from decimal import Decimal
 
 from src.infrastructure.db import Base
 from src.domain.enums import RideStatus
 
-from sqlalchemy import BigInteger, Identity, ForeignKey, TEXT, Enum as SQLEnum, TIMESTAMP, func
+from sqlalchemy import BigInteger, Identity, ForeignKey, TEXT, Enum as SQLEnum, TIMESTAMP, func, DOUBLE_PRECISION, DECIMAL, String
 from sqlalchemy.orm import Mapped, mapped_column
 
 from geoalchemy2 import Geography
@@ -20,6 +21,9 @@ class RideModel(Base):
     destination_address: Mapped[str] = mapped_column(TEXT, nullable=False)
     destination_geo: Mapped[WKBElement] = mapped_column(Geography("POINT", srid=4326), nullable=False)
     status: Mapped[RideStatus] = mapped_column(SQLEnum(RideStatus, name="ride_status"), nullable=False)
+    distance_meters: Mapped[float] = mapped_column(DOUBLE_PRECISION, nullable=False)
+    price: Mapped[Decimal] = mapped_column(DECIMAL(10, 2), nullable=False)
+    currency: Mapped[str] = mapped_column(String(3), nullable=False)
 
     created_at: Mapped[datetime] = mapped_column(
         TIMESTAMP(timezone=True),

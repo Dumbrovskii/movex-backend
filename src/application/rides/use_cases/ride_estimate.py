@@ -1,9 +1,9 @@
 from src.application.interfaces.services import RouteService, PricingService
-from src.application.rides.commands.estimate_ride import EstimateRideCommand
+from src.application.rides.commands.ride_estimate import RideEstimateCommand
 from src.domain.value_objects import Route, Money
 
 
-class EstimateRideUseCase:
+class RideEstimateUseCase:
 
     def __init__(
             self,
@@ -15,7 +15,7 @@ class EstimateRideUseCase:
 
     async def execute(
             self,
-            command: EstimateRideCommand
+            command: RideEstimateCommand
     ) -> tuple[Route, Money]:
         route = await self._route_service.calculate_route(
             pickup=command.pickup,
@@ -25,3 +25,4 @@ class EstimateRideUseCase:
         price = self._pricing_service.calculate_price(route)
 
         return route, price
+

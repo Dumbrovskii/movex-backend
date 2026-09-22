@@ -8,10 +8,11 @@ from .auth import (
     LogoutRequest,
 )
 from .rides import (
-    EstimateRideRequest,
-    EstimateRideResponse,
+    RideEstimateRequest,
+    RideEstimateResponse,
     RideRequest,
     RideResponse,
+    RideActiveResponse,
 )
 
 __all__ = [
@@ -22,8 +23,9 @@ __all__ = [
     "RefreshTokenRequest",
     "RefreshTokenResponse",
     "LogoutRequest",
-    "EstimateRideRequest",
-    "EstimateRideResponse",
+    "RideEstimateRequest",
+    "RideEstimateResponse",
     "RideRequest",
     "RideResponse",
+    "RideActiveResponse",
 ]
