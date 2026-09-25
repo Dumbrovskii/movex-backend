@@ -17,6 +17,10 @@ class RidesRepository(ABC):
         pass
 
     @abstractmethod
+    async def cancel(self, user_id: int, ride_id: int) -> bool:
+        pass
+
+    @abstractmethod
     async def get_active_by_user_id(self, user_id: int) -> Ride | None:
         pass
 

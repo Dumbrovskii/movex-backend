@@ -36,3 +36,6 @@ class RideResponse(BaseModel):
 class RideActiveResponse(BaseModel):
     route: Route
     ride: Ride
+
+class RideCancelRequest(BaseModel):
+    ride_id: int

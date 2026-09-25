@@ -4,9 +4,10 @@ from .auth import (
     get_refresh_token_use_case
 )
 from .rides import (
-    get_ride_estimate_use_cases,
-    get_ride_request_use_cases,
-    get_ride_active_use_cases,
+    get_ride_estimate_use_case,
+    get_ride_request_use_case,
+    get_ride_active_use_case,
+    get_ride_cancel_use_case,
 )
 
 from .security import (
@@ -18,7 +19,8 @@ __all__ = [
     "get_verify_code_use_case",
     "get_refresh_token_use_case",
     "get_current_user_id",
-    "get_ride_estimate_use_cases",
-    "get_ride_request_use_cases",
-    "get_ride_active_use_cases",
+    "get_ride_estimate_use_case",
+    "get_ride_request_use_case",
+    "get_ride_active_use_case",
+    "get_ride_cancel_use_case",
 ]
