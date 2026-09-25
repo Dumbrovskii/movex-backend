@@ -8,6 +8,7 @@ from .auth import (
 )
 from .rides import (
     ActiveRideExistsError,
+    RideNotFoundError,
 )
 
 __all__ = [
@@ -18,4 +19,5 @@ __all__ = [
     "InvalidRefreshTokenError",
     "UnauthorizedError",
     "ActiveRideExistsError",
+    "RideNotFoundError",
 ]

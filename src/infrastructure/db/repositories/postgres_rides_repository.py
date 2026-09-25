@@ -1,4 +1,4 @@
-from sqlalchemy import select, exists
+from sqlalchemy import select, exists, update
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from src.application.interfaces import RidesRepository
@@ -38,11 +38,30 @@ class PostgresRidesRepository(RidesRepository):
 
         return RideMapper.to_domain(model)
 
+
     async def update(self, ride: Ride) -> Ride:
         pass
 
+
+    async def cancel(self, user_id: int, ride_id: int) -> bool:
+        stmt = (
+            update(RideModel)
+            .where(RideModel.passenger_id == user_id,
+                   RideModel.id == ride_id)
+            .values(
+                status=RideStatus.CANCELED,
+            )
+            .returning(RideModel.id)
+        )
+
+        result = await self._session.execute(stmt)
+        await self._session.commit()
+
+        return result.scalar_one_or_none() is not None
+
+
     async def get_active_by_user_id(self, user_id: int) -> Ride | None:
-        query = (
+        stmt = (
             select(RideModel)
             .where(
                 RideModel.passenger_id == user_id,
@@ -55,7 +74,7 @@ class PostgresRidesRepository(RidesRepository):
             .order_by(RideModel.created_at.desc())
             .limit(1))
 
-        result = await self._session.execute(query)
+        result = await self._session.execute(stmt)
         model = result.scalar_one_or_none()
 
         if not model:
@@ -63,11 +82,14 @@ class PostgresRidesRepository(RidesRepository):
 
         return RideMapper.to_domain(model)
 
+
     async def update_status(self, ride_id: int, status: RideStatus) -> None:
         pass
 
+
     async def assign_driver(self, ride_id: int, drive_id: int) -> None:
         pass
+
 
     async def exists_active_by_user_id(self, user_id: int) -> bool:
         query = select(

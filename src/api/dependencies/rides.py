@@ -14,6 +14,7 @@ from src.application.rides.use_cases import (
     RideEstimateUseCase,
     RideRequestUseCase,
     RideActiveUseCase,
+    RideCancelUseCase,
 )
 from src.config.settings import settings
 from src.infrastructure.pricing import DefaultPricingService
@@ -33,7 +34,7 @@ def get_price_service() -> PricingService:
     return DefaultPricingService()
 
 
-async def get_ride_estimate_use_cases(
+async def get_ride_estimate_use_case(
         route_service: RouteService = Depends(get_route_service),
         pricing_service: PricingService = Depends(get_price_service),
 
@@ -43,7 +44,7 @@ async def get_ride_estimate_use_cases(
         pricing_service=pricing_service
     )
 
-async def get_ride_request_use_cases(
+async def get_ride_request_use_case(
         route_service: RouteService = Depends(get_route_service),
         pricing_service: PricingService = Depends(get_price_service),
         rides_repository: RidesRepository = Depends(get_rides_repository),
@@ -54,11 +55,18 @@ async def get_ride_request_use_cases(
         rides_repository=rides_repository,
     )
 
-async def get_ride_active_use_cases(
+async def get_ride_active_use_case(
         route_service: RouteService = Depends(get_route_service),
         ride_repository: RidesRepository = Depends(get_rides_repository),
 ) -> RideActiveUseCase:
     return RideActiveUseCase(
         route_service=route_service,
         ride_repository=ride_repository,
+    )
+
+async def get_ride_cancel_use_case(
+        ride_repository: RidesRepository = Depends(get_rides_repository)
+) -> RideCancelUseCase:
+    return RideCancelUseCase(
+        rides_repository=ride_repository,
     )

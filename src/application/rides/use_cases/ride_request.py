@@ -27,7 +27,7 @@ class RideRequestUseCase:
     async def execute(
             self,
             command: RideRequestCommand,
-    ) -> tuple[Route, Money]:
+    ) -> tuple[Route, Ride]:
 
         exists_ride = await self._rides_repository.exists_active_by_user_id(command.user_id)
 
@@ -53,6 +53,6 @@ class RideRequestUseCase:
             currency=price.currency,
         )
 
-        await self._rides_repository.create(ride)
+        ride = await self._rides_repository.create(ride)
 
-        return route, price
+        return route, ride
