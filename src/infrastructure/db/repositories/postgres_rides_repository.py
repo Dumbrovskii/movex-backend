@@ -2,8 +2,8 @@ from sqlalchemy import select, exists, update
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from src.application.interfaces import RidesRepository
-from src.domain.entities import Ride
-from src.domain.enums import RideStatus
+from movex_domain.entities.ride import Ride
+from movex_domain.enums.ride_status import RideStatus
 from src.infrastructure.db.mappers.ride_mapper import RideMapper
 from src.infrastructure.db.models.ride_model import RideModel
 

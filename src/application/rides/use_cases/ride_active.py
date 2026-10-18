@@ -3,8 +3,8 @@ from src.application.interfaces import (
     RouteService,
 )
 from src.application.rides.commands import RideActiveCommand
-from src.domain.entities import Ride
-from src.domain.value_objects import Route
+from movex_domain.entities.ride import Ride
+from movex_domain.value_objects.route import Route
 
 
 class RideActiveUseCase:

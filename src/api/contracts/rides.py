@@ -2,8 +2,8 @@ from decimal import Decimal
 
 from pydantic import BaseModel, Field
 
-from src.domain.value_objects import Route
-from src.domain.entities.ride import Ride
+from movex_domain.value_objects.route import Route
+from movex_domain.entities.ride import Ride
 
 
 class RideEstimateRequest(BaseModel):

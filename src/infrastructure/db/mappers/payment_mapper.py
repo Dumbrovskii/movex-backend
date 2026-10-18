@@ -1,5 +1,5 @@
 from src.infrastructure.db.models import PaymentModel
-from src.domain.entities import Payment
+from movex_domain.entities.payment import Payment
 
 
 class PaymentMapper:

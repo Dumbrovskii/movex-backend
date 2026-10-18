@@ -1,5 +1,5 @@
 from src.infrastructure.db.models import UserModel
-from src.domain.entities import User
+from movex_domain.entities.user import User
 
 
 class UserMapper:

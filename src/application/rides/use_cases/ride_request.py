@@ -7,9 +7,9 @@ from src.application.exceptions import (
     ActiveRideExistsError,
 )
 from src.application.rides.commands import RideRequestCommand
-from src.domain.value_objects import Route, Money
-from src.domain.entities import Ride
-from src.domain.enums import RideStatus
+from movex_domain.value_objects.route import Route
+from movex_domain.entities.ride import Ride
+from movex_domain.enums.ride_status import RideStatus
 
 
 class RideRequestUseCase:

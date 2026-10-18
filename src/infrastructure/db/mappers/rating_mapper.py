@@ -1,5 +1,5 @@
 from src.infrastructure.db.models import RatingModel
-from src.domain.entities import Rating
+from movex_domain.entities.rating import Rating
 
 
 class RatingMapper:

@@ -3,7 +3,7 @@ from datetime import datetime
 from sqlalchemy import BigInteger, Enum as SQLEnum, TIMESTAMP, ForeignKey, func
 from sqlalchemy.orm import Mapped, mapped_column
 
-from src.domain.enums import DriverStatus
+from movex_domain.enums.driver_status import DriverStatus
 from src.infrastructure.db import Base
 
 class DriverModel(Base):

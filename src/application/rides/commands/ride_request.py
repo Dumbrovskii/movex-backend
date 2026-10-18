@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
-from src.domain.value_objects import GeoPoint
+from movex_domain.value_objects.geo_point import GeoPoint
 
 
 @dataclass(frozen=True)

@@ -1,7 +1,7 @@
 from datetime import datetime
 
 from src.infrastructure.db import Base
-from src.domain.enums import NotificationType
+from movex_domain.enums.notification_type import NotificationType
 
 from sqlalchemy import BigInteger, Identity, ForeignKey, Enum as SQLEnum, TEXT, TIMESTAMP, func
 from sqlalchemy.orm import mapped_column, Mapped

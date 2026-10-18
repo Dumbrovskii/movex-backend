@@ -1,5 +1,5 @@
 from src.application.auth.commands import VerifyCodeCommand
-from src.domain.entities import User
+from movex_domain.entities.user import User
 
 from src.application.exceptions import (
     VerificationCodeNotFoundError,

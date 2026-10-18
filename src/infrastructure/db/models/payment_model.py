@@ -1,7 +1,7 @@
 from datetime import datetime
 
 from src.infrastructure.db import Base
-from src.domain.enums import PaymentStatus
+from movex_domain.enums.payment_status import PaymentStatus
 
 from sqlalchemy import String, TIMESTAMP, BigInteger, Identity, func, ForeignKey, DECIMAL, Enum as SQLEnum, TEXT
 from sqlalchemy.orm import Mapped, mapped_column
