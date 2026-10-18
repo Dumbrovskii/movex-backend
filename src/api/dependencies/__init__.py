@@ -9,6 +9,10 @@ from .rides import (
     get_ride_active_use_case,
     get_ride_cancel_use_case,
 )
+from .users import (
+    get_user_get_current_use_case,
+    get_user_update_use_case,
+)
 
 from .security import (
     get_current_user_id
@@ -23,4 +27,6 @@ __all__ = [
     "get_ride_request_use_case",
     "get_ride_active_use_case",
     "get_ride_cancel_use_case",
+    "get_user_get_current_use_case",
+    "get_user_update_use_case",
 ]
