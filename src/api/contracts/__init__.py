@@ -15,6 +15,12 @@ from .rides import (
     RideActiveResponse,
     RideCancelRequest,
 )
+from .users import (
+    UserMeRequest,
+    UserMeResponse,
+    UserUpdateRequest,
+    UserUpdateResponse,
+)
 
 __all__ = [
     "RequestCodeRequest",
@@ -30,4 +36,8 @@ __all__ = [
     "RideResponse",
     "RideActiveResponse",
     "RideCancelRequest",
+    "UserMeRequest",
+    "UserMeResponse",
+    "UserUpdateRequest",
+    "UserUpdateResponse",
 ]
