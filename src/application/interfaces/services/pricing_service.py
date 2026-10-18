@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
 
-from src.domain.value_objects import Route, Money
+from movex_domain.value_objects.route import Route
+from movex_domain.value_objects.money import Money
 
 
 class PricingService(ABC):

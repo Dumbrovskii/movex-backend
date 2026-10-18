@@ -1,9 +1,9 @@
 from geoalchemy2.shape import from_shape, to_shape
 from shapely.geometry import Point
 
-from src.domain.value_objects import GeoPoint
+from movex_domain.value_objects.geo_point import GeoPoint
 from src.infrastructure.db.models import RideModel
-from src.domain.entities import Ride
+from movex_domain.entities.ride import Ride
 
 
 class RideMapper:

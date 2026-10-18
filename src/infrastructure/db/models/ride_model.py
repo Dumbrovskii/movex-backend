@@ -2,7 +2,7 @@ from datetime import datetime
 from decimal import Decimal
 
 from src.infrastructure.db import Base
-from src.domain.enums import RideStatus
+from movex_domain.enums.ride_status import RideStatus
 
 from sqlalchemy import BigInteger, Identity, ForeignKey, TEXT, Enum as SQLEnum, TIMESTAMP, func, DOUBLE_PRECISION, DECIMAL, String
 from sqlalchemy.orm import Mapped, mapped_column

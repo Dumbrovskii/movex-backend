@@ -1,6 +1,7 @@
 from src.application.interfaces.services import PricingService
 from src.config import settings
-from src.domain.value_objects import Route, Money
+from movex_domain.value_objects.route import Route
+from movex_domain.value_objects.money import Money
 
 from decimal import Decimal
 

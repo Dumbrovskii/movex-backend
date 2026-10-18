@@ -1,5 +1,5 @@
 from src.infrastructure.db.models import NotificationModel
-from src.domain.entities.notification import Notification
+from movex_domain.entities.notification import Notification
 
 
 class NotificationMapper:

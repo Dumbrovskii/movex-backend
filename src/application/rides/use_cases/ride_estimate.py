@@ -1,6 +1,7 @@
 from src.application.interfaces.services import RouteService, PricingService
 from src.application.rides.commands.ride_estimate import RideEstimateCommand
-from src.domain.value_objects import Route, Money
+from movex_domain.value_objects.route import Route
+from movex_domain.value_objects.money import Money
 
 
 class RideEstimateUseCase:

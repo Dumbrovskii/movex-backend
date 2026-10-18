@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-from src.domain.entities.ride import Ride, RideStatus
+from movex_domain.entities.ride import Ride, RideStatus
 
 class RidesRepository(ABC):
 

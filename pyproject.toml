@@ -3,7 +3,7 @@ name = "movex-backend"
 version = "0.1.0"
 description = "Backend service for Movex"
 readme = "README.md"
-requires-python = ">=3.13"
+requires-python = ">=3.14"
 
 dependencies = [
     "fastapi>=0.141.1",
@@ -21,6 +21,7 @@ dependencies = [
     "shapely>=2.1.2",
     "asyncpg>=0.31.0",
     "prometheus-fastapi-instrumentator>=8.1.0",
+    "movex-domain @ git+https://github.com/Dumbrovskii/movex-domain.git@v0.1.0",
 ]
 
 [dependency-groups]

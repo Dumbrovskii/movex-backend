@@ -26,7 +26,7 @@ from src.application.rides.use_cases import (
     RideRequestUseCase,
     RideActiveUseCase, RideCancelUseCase,
 )
-from src.domain.value_objects import GeoPoint
+from movex_domain.value_objects.geo_point import GeoPoint
 
 router = ProtectedAPIRouter(
     prefix="/rides",

@@ -1,7 +1,8 @@
 import httpx
 
 from src.application.interfaces.services import RouteService
-from src.domain.value_objects import GeoPoint, Route
+from movex_domain.value_objects.geo_point import GeoPoint
+from movex_domain.value_objects.route import Route
 
 from src.config import settings
 

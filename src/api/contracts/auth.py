@@ -1,5 +1,5 @@
 from pydantic import BaseModel, Field
-from src.domain.entities.user import User
+from movex_domain.entities.user import User
 
 class RequestCodeRequest(BaseModel):
     phone: str = Field(

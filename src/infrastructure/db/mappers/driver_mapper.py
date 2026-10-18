@@ -1,5 +1,5 @@
 from src.infrastructure.db.models import DriverModel
-from src.domain.entities import Driver
+from movex_domain.entities.driver import Driver
 
 
 class DriverMapper:
