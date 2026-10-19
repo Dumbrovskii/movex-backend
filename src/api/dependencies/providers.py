@@ -28,6 +28,7 @@ from src.infrastructure.security import (
 )
 
 from src.infrastructure.sms import DummySmsSender
+from src.application.interfaces.messaging import MessagePublisher
 
 
 def get_verification_code_repository() -> VerificationCodeRepository:
@@ -64,3 +65,6 @@ def get_token_service(
 
 def get_http_client(request: Request) -> httpx.AsyncClient:
     return request.app.state.http_client
+
+def get_message_publisher(request: Request) -> MessagePublisher:
+    return request.app.state.message_publisher
