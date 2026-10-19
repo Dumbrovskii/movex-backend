@@ -14,14 +14,27 @@ from src.config.settings import settings
 
 from prometheus_fastapi_instrumentator import Instrumentator
 
+from src.infrastructure.messaging import (
+    RabbitMQConnection,
+    RabbitMQPublisher
+)
 
 @asynccontextmanager
 async def lifespan(application: FastAPI):
     application.state.http_client = httpx.AsyncClient()
+    rabbitmq = RabbitMQConnection()
 
-    yield
+    try:
+        await rabbitmq.connect()
 
-    await application.state.http_client.aclose()
+        application.state.message_publisher = RabbitMQPublisher(
+            rabbitmq.exchange
+        )
+
+        yield
+    finally:
+        await rabbitmq.close()
+        await application.state.http_client.aclose()
 
 
 app = FastAPI(

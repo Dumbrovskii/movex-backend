@@ -29,6 +29,10 @@ class Settings(BaseSettings):
     JWT_SECRET: str
     JWT_ALGORITHM: str
 
+    # RabbitMQ
+    RABBITMQ_URL: str
+    RABBITMQ_EXCHANGE: str
+
     #OSRM
     OSRM_HOST: str
 
